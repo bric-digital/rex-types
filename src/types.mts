@@ -15,8 +15,8 @@ export interface AISummary {
   query:string,
   content:string,
   platform:string,
-  citations?: Citation[],
-  metadata?: any,
+  citations?:Citation[],
+  metadata?:any,
 }
 
 export class DateString {
@@ -50,17 +50,17 @@ export interface Search {
   query:string,
   type:string,
   result:Result[],
-  news:NewsBlurb[],
-  aiSummaries:AISummary[],
+  news?:NewsBlurb[],
+  aiSummaries?:AISummary[],
 }
 
 export interface Turn {
   speaker:string,
-  when:Date,
+  when:DateString,
   content:string,
   identifier?:string,
   search?:Search,
-  metadata:any,
+  metadata?:any,
   citations?: Citation[]
 }
 
@@ -68,7 +68,7 @@ export interface Conversation {
   turns:Turn[],
   platform:string,
   identifier:string,
-  started:Date,
-  ended:Date,
-  metadata:any,
+  started:DateString,
+  ended?:DateString,
+  metadata?:any,
 }
