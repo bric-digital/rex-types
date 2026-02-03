@@ -43,6 +43,7 @@ export interface Result {
   link:string,
   preview:string,
   index:number,
+  metadata?:any,
 }
 
 export interface Search {
