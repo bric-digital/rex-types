@@ -12,11 +12,11 @@ export interface Citation {
 }
 
 export interface AISummary {
-  query:string,
-  content:string,
+  'query*':string,
+  'content*':string,
   platform:string,
   citations?:Citation[],
-  metadata?:any,
+  'metadata*'?:any,
 }
 
 export class DateString {
@@ -47,7 +47,7 @@ export interface Result {
 
 export interface Search {
   platform:string,
-  query:string,
+  'query*':string,
   type:string,
   result:Result[],
   news?:NewsBlurb[],
@@ -57,10 +57,10 @@ export interface Search {
 export interface Turn {
   speaker:string,
   when:DateString,
-  content:string,
+  'content*':string,
   identifier?:string,
   search?:Search,
-  metadata?:any,
+  'metadata*'?:any,
   citations?: Citation[]
 }
 
