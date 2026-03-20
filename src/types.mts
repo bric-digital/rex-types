@@ -42,6 +42,17 @@ export interface NewsBlurb {
   position?:Position,
 }
 
+export interface NewsArticle {
+  url: string,
+  headline: string,
+  posted:DateString,
+  authors:string[],
+  content:string,
+  summary?:string,   // summary, excerpt, or subheadline
+  citations?: Citation[],
+  topics?: string[], // open/customizable — use for categories, tags, or any classification
+}
+
 export interface Result {
   title:string,
   url:string,
