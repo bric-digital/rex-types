@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "module": "NodeNext",
-    "target": "es5",
+    "target": "es6",
     "esModuleInterop": true,
     "moduleResolution": "nodenext",
     "sourceMap": true,
+    "rootDir": "src",
     "outDir": "dist",
     "types": ["chrome-types"],
     "lib": ["es2015", "es2016", "es2021", "dom"],

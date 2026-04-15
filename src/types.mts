@@ -22,7 +22,7 @@ export interface AISummary {
 export class DateString {
   value:string
 
-  constructor(value) {
+  constructor(value:string) {
     this.value = value
   }
 
