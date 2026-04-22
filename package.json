@@ -34,7 +34,7 @@
     "devDependencies": {
         "@eslint/js": "^9.39.1",
         "@playwright/test": "^1.59.1",
-        "@types/jquery": "^3.5.33",
+        "@types/jquery": "^4.0.0",
         "chrome-types": "^0.1.387",
         "esbuild": "^0.28.0",
         "eslint": "^10.2.0",
