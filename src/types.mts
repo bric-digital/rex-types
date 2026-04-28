@@ -40,6 +40,7 @@ export interface NewsBlurb {
   url?:string,
   citations?: Citation[],
   position?:Position,
+  metadata?:any, // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 export interface StockTicker {
@@ -51,7 +52,8 @@ export interface StockTicker {
   direction:'up' | 'down',
   lastUpdated?:string,
   url?:string,
-  category?:string,
+  topics?: string[], // open/customizable — use for categories, tags, or any classification
+  metadata?:any, // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 export interface NewsArticle {
