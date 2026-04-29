@@ -40,6 +40,7 @@ export interface NewsBlurb {
   url?:string,
   citations?: Citation[],
   position?:Position,
+  engine?:string,
 }
 
 export interface StockTicker {
