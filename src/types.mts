@@ -32,7 +32,8 @@ export interface AISummary {
 }
 
 export class DateString {
-  value:Temporal.Instant
+  value:Temporal.Instant|null = null
+  originalValue:string = ''
 
   constructor(value:any) { // eslint-disable-line @typescript-eslint/no-explicit-any
     if (check.number(value)) {
@@ -42,16 +43,22 @@ export class DateString {
 
       this.value = legacyDate.toTemporalInstant()
     } else {
-      // try {
+      try {
         this.value = Temporal.Instant.from(value)
-      // } catch (error) {
-      //   throw new Error(`Unable to parse ${value} of type "${typeof value}:.`)
-      // }
+      } catch (error) {
+        console.log(`[rex-types / DateString] Unable to parse ${value} of type "${typeof value}".`)
+        this.originalValue = `${value}`
+        this.value = null
+      }
     }
   }
 
   toJSON() {
-    return this.value.toString()
+    if (this.value !== null) {
+      return this.value.toString()
+    }
+
+    return this.originalValue
   }
 }
 
