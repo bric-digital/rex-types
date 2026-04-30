@@ -22,8 +22,8 @@ export interface AISummary {
 export class DateString {
   value:string
 
-  constructor(value:string) {
-    this.value = value
+  constructor(value:string | number) {
+    this.value = typeof value === 'number' ? String(value) : value
   }
 
   getAttr() {
