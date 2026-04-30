@@ -1,3 +1,15 @@
+import { Temporal, toTemporalInstant } from '@js-temporal/polyfill'
+
+declare global {
+  interface Date {
+    toTemporalInstant(): Temporal.Instant;
+  }
+}
+
+Date.prototype.toTemporalInstant = toTemporalInstant;
+
+import check from 'check-types'
+
 export interface Position {
   top:number,
   left:number,
@@ -20,14 +32,26 @@ export interface AISummary {
 }
 
 export class DateString {
-  value:string
+  value:Temporal.Instant
 
-  constructor(value:string) {
-    this.value = value
+  constructor(value:any) { // eslint-disable-line @typescript-eslint/no-explicit-any
+    if (check.number(value)) {
+      this.value = Temporal.Instant.fromEpochMilliseconds(value * 1000)
+    } else if (check.date(value)) {
+      const legacyDate = (value as Date)
+
+      this.value = legacyDate.toTemporalInstant()
+    } else {
+      // try {
+        this.value = Temporal.Instant.from(value)
+      // } catch (error) {
+      //   throw new Error(`Unable to parse ${value} of type "${typeof value}:.`)
+      // }
+    }
   }
 
-  getAttr() {
-    return this.value;
+  toJSON() {
+    return this.value.toString()
   }
 }
 
