@@ -49,7 +49,7 @@ export class DateString {
     } else {
       try {
         this.value = Temporal.Instant.from(value)
-      } catch (error) {
+      } catch {
         console.log(`[rex-types / DateString] Unable to parse ${value} of type "${typeof value}".`)
         this.originalValue = `${value}`
         this.value = null
