@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "REX Core Test Extension",
+  "version": "1.0.0",
+  "description": "Test extension for rex-headers modules.",
+  "permissions": [
+    "scripting",
+    "storage"
+  ],
+  "action": {
+    "default_icon": {
+      "256": "images/icon-256.png",
+      "128": "images/icon-128.png",
+      "48": "images/icon-48.png",
+      "32": "images/icon-32.png",
+      "16": "images/icon-16.png"
+    }
+  },
+  "background": {
+    "service_worker": "js/serviceWorker/bundle.js"
+  }
+}

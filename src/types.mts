@@ -1,3 +1,15 @@
+import { Temporal, toTemporalInstant } from '@js-temporal/polyfill'
+
+declare global {
+  interface Date {
+    toTemporalInstant(): Temporal.Instant;
+  }
+}
+
+Date.prototype.toTemporalInstant = toTemporalInstant;
+
+import check from 'check-types'
+
 export interface Position {
   top:number,
   left:number,
@@ -20,14 +32,37 @@ export interface AISummary {
 }
 
 export class DateString {
-  value:string
+  value:Temporal.Instant|null = null
+  originalValue:string = ''
 
-  constructor(value:string | number) {
-    this.value = typeof value === 'number' ? String(value) : value
+  constructor(value:any) { // eslint-disable-line @typescript-eslint/no-explicit-any
+    if (check.number(value)) {
+      // ChatGPT (and others) emit epoch-seconds as floats with sub-millisecond
+      // precision (e.g. 1777570208.089697). fromEpochMilliseconds requires an
+      // integer, so route through nanoseconds to preserve microsecond precision.
+      const nanos = BigInt(Math.round(value * 1e9))
+      this.value = Temporal.Instant.fromEpochNanoseconds(nanos)
+    } else if (check.date(value)) {
+      const legacyDate = (value as Date)
+
+      this.value = legacyDate.toTemporalInstant()
+    } else {
+      try {
+        this.value = Temporal.Instant.from(value)
+      } catch {
+        console.log(`[rex-types / DateString] Unable to parse ${value} of type "${typeof value}".`)
+        this.originalValue = `${value}`
+        this.value = null
+      }
+    }
   }
 
-  getAttr() {
-    return this.value;
+  toJSON() {
+    if (this.value !== null) {
+      return this.value.toString()
+    }
+
+    return this.originalValue
   }
 }
 

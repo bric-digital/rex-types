@@ -1,0 +1,9 @@
+{
+    "configuration_url": "config.json",
+    "identifier": "rex-types-test",
+    "ui": [{
+        "title": "REX Types Testing Extension",
+        "identifier": "main",
+        "default": true
+    }]
+}
