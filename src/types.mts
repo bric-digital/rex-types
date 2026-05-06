@@ -37,7 +37,11 @@ export class DateString {
 
   constructor(value:any) { // eslint-disable-line @typescript-eslint/no-explicit-any
     if (check.number(value)) {
-      this.value = Temporal.Instant.fromEpochMilliseconds(value * 1000)
+      // ChatGPT (and others) emit epoch-seconds as floats with sub-millisecond
+      // precision (e.g. 1777570208.089697). fromEpochMilliseconds requires an
+      // integer, so route through nanoseconds to preserve microsecond precision.
+      const nanos = BigInt(Math.round(value * 1e9))
+      this.value = Temporal.Instant.fromEpochNanoseconds(nanos)
     } else if (check.date(value)) {
       const legacyDate = (value as Date)
 
@@ -45,7 +49,7 @@ export class DateString {
     } else {
       try {
         this.value = Temporal.Instant.from(value)
-      } catch (error) {
+      } catch {
         console.log(`[rex-types / DateString] Unable to parse ${value} of type "${typeof value}".`)
         this.originalValue = `${value}`
         this.value = null
