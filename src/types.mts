@@ -135,7 +135,7 @@ export interface Conversation {
   turns:Turn[],
   platform:string,
   identifier:string,
-  started:DateString,
+  started?:DateString,
   ended?:DateString,
   metadata?:any, // eslint-disable-line @typescript-eslint/no-explicit-any
 }
