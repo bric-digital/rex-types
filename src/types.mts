@@ -64,6 +64,14 @@ export class DateString {
 
     return this.originalValue
   }
+
+  timestamp(): number {
+    if (this.value === null) {
+      throw new Error('Cannot convert a null Temporal.Instant to a timestamp.');
+    }
+
+    return this.value.epochMilliseconds
+  }
 }
 
 export interface NewsBlurb {
