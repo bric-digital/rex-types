@@ -167,3 +167,41 @@ export interface RexPageUrlActiveEvent {
   url: string,
   url_shown_at: number,
 }
+
+export class REXStackOperator<T> {
+  private stack:T[] = []
+
+  push(...elements:T[]) {
+    this.stack.push(...elements)
+  }
+
+  run(operation:(item:T) => Promise<void>): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      const processNext = () => {
+        if (this.stack.length === 0) {
+          resolve()
+        } else {
+          const item:T|undefined = this.stack.pop()
+
+          if (item !== undefined) {
+            try {
+              operation(item)
+                .then(() => {
+                  processNext()
+                })
+                .catch((err) => {
+                  reject(err)
+                })
+            } catch (err) {
+              reject(err)
+            }
+          } else {
+            processNext()
+          }
+        }
+      }
+
+      processNext()
+    })
+  }
+}
