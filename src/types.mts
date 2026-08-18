@@ -42,13 +42,16 @@ export class DateString {
       // integer, so route through nanoseconds to preserve microsecond precision.
       const nanos = BigInt(Math.round(value * 1e9))
       this.value = Temporal.Instant.fromEpochNanoseconds(nanos)
+      this.originalValue = `number:${value}`
     } else if (check.date(value)) {
       const legacyDate = (value as Date)
 
       this.value = legacyDate.toTemporalInstant()
+      this.originalValue = `date:${value}`
     } else {
       try {
         this.value = Temporal.Instant.from(value)
+        this.originalValue = `other:${value}`
       } catch {
         console.log(`[rex-types / DateString] Unable to parse ${value} of type "${typeof value}".`)
         this.originalValue = `${value}`
