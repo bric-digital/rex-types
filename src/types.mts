@@ -148,6 +148,7 @@ export interface Conversation {
   identifier:string,
   started?:DateString,
   ended?:DateString,
+  user_agent?: string,
   metadata?:any, // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
