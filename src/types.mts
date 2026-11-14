@@ -174,14 +174,12 @@ export interface RexPageUrlActiveEvent {
 
 /**
  * Fields shared by the visit records emitted by rex-history (`rex-history-visit`) and
- * rex-browsing, so a researcher can read both with one schema. `url` equals `recorded_url`,
- * which may be a category label when the recording module minimizes the URL. Times are
- * milliseconds since the epoch. The optional fields are absent when Chrome cannot supply them
+ * rex-browsing (`rex-browsing-visit`), so a researcher can read both with one schema. `url`
+ * may be a category label when the URL is minimized. Times are milliseconds since the epoch. The optional fields are absent when Chrome cannot supply them
  * or the visit was not looked up.
  */
 export interface RexVisitRecord {
   url: string,
-  recorded_url: string,
   domain: string,
   title: string,
   visit_time: number,
