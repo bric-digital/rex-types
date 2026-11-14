@@ -172,6 +172,28 @@ export interface RexPageUrlActiveEvent {
   url_shown_at: number,
 }
 
+/**
+ * Fields shared by the visit records emitted by rex-history (`rex-history-visit`) and
+ * rex-browsing (`rex-browsing-visit`), so a researcher can read both with one schema. `url`
+ * may be a category label when the URL is minimized. Times are milliseconds since the epoch. The optional fields are absent when Chrome cannot supply them
+ * or the visit was not looked up.
+ */
+export interface RexVisitRecord {
+  url: string,
+  domain: string,
+  title: string,
+  visit_time: number,
+  date: number,
+  transition_type?: string,
+  is_local?: boolean,
+  visit_id?: string,
+  referring_visit_id?: string,
+  history_item_id?: string,
+  last_visit_time?: number,
+  visit_count?: number,
+  typed_count?: number,
+}
+
 export class REXStackOperator<T> {
   private stack:T[] = []
 
